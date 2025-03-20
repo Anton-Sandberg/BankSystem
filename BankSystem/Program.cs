@@ -15,14 +15,24 @@ namespace BankSystem
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<BankAppDataContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BankAppDataContext>();
+
             builder.Services.AddRazorPages();
 
+            builder.Services.AddTransient<DataInitializer>();
+
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<DataInitializer>();
+                initializer.SeedData();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
