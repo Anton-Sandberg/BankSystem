@@ -1,5 +1,5 @@
 using DataAccess.Data;
-using DataAccess.Models;
+using Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +25,8 @@ namespace BankSystem
             builder.Services.AddRazorPages();
 
             builder.Services.AddTransient<DataInitializer>();
+
+            builder.Services.AddBankServices();
 
             var app = builder.Build();
 
