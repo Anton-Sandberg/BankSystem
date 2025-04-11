@@ -1,0 +1,13 @@
+﻿.flag-container {
+    box-shadow: 0px 0px 8px 0px;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 6px;
+    width: 4rem;
+    height: 3rem;
+}
+
+.flag-container .fi {
+    font-size: 3.2rem;
+    display: block;
+}
