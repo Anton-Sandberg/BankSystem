@@ -3,3 +3,51 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="container">
+    <h3 class="pt-5 text-left">Customer Stats</h3>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="nc-icon nc-single-02 text-secondary mb-2 mt-4" style="font-size: 3rem;"></i>
+                    <p class="mb-1 text-muted">Customers</p>
+                    <h5 class="mb-0">@Model.CustomerCount</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="nc-icon nc-bank text-secondary mb-2 mt-4" style="font-size: 3rem;"></i>
+                    <p class="mb-1 text-muted">Accounts</p>
+                    <h5 class="mb-0">@Model.AccountCount</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="pt-5 text-left">Country Balance</h3>
+
+    @if (!Model.CountryBalances.Any())
+    {
+        <p>No country balance data available.</p>
+    }
+    else
+    {
+        <div class="row align-content-start">
+            @foreach (var country in Model.CountryBalances)
+            {
+                @await Html.PartialAsync("_CountryBalanceCardPartial", country)
+            }
+        </div>
+    }
+</div>
