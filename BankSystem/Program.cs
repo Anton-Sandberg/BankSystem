@@ -27,6 +27,7 @@ namespace BankSystem
             builder.Services.AddTransient<DataInitializer>();
 
             builder.Services.AddBankServices();
+            builder.Services.AddUiServices();
 
             var app = builder.Build();
 
