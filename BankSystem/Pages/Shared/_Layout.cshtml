@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 @{
-    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
 }
 
 <!DOCTYPE html>
@@ -59,6 +59,12 @@ Coded by www.creative-tim.com
                             <p>Overview</p>
                         </a>
                     </li>
+                    <li class="@(currentPage!.StartsWith("/Customers") ? "active" : "")">
+                        <a asp-page="/Customers/CustomerSearch">
+                            <i class="nc-icon nc-zoom-split"></i>
+                            <p>Search Customers</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -74,13 +80,14 @@ Coded by www.creative-tim.com
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
+                        <span class="text-muted" style="font-size:1.5rem;">@ViewData["Title"]</span>
                     </div>
                 </div>
 
             </nav>
             <!-- End Navbar -->
             <div class="content">
-                <main role="main" style="min-height: 80vh">
+                <main role="main" style="min-height: 75vh">
                     @RenderBody()
                 </main>
             </div>

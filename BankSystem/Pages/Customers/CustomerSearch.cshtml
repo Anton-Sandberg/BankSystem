@@ -1,0 +1,135 @@
+﻿@page
+@model BankSystem.Pages.Customers.CustomerSearchModel
+@{
+    ViewData["Title"] = "Search Customers";
+}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get">
+            <input type="hidden" asp-for="SortColumns" />
+            <input type="hidden" asp-for="SortOrder" />
+            <input type="hidden" asp-for="PageIndex" value="0" />
+
+            <div class="form-row align-items-end">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label asp-for="GivenName"></label>
+                    <input asp-for="GivenName" class="form-control" />
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label asp-for="SurName"></label>
+                    <input asp-for="SurName" class="form-control" />
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" class="form-control" />
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+
+        @if (!Model.Customers.Any())
+        {
+            <p class="mt-4">No customers found.</p>
+        }
+        else
+        {
+            <div class="table-responsive table-bordered rounded mt-4" style="max-height: 60vh;">
+                <table class="table table-striped">
+                <thead class="table-light sticky-top">
+                    <tr>
+                            <th style="white-space: nowrap; width: 1%;">
+                        </th>
+                        <th>
+                                <a asp-route-SortColumns="Givenname"
+                                   asp-route-SortOrder=@(Model.SortColumns == "Givenname" && Model.SortOrder == "asc" ? "desc" : "asc")
+                                   asp-route-PageIndex="0"
+                                   asp-route-GivenName="@Model.GivenName"
+                                   asp-route-SurName="@Model.SurName"
+                                   asp-route-City="@Model.City">
+                                    First Name
+                                </a>
+                        </th>
+                        <th>
+                            <a asp-route-SortColumns="Surname"
+                               asp-route-SortOrder=@(Model.SortColumns == "Surname" && Model.SortOrder == "asc" ? "desc" : "asc")
+                               asp-route-PageIndex="0"
+                               asp-route-GivenName="@Model.GivenName"
+                               asp-route-SurName="@Model.SurName"
+                               asp-route-City="@Model.City">
+                                Last Name
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-route-SortColumns="City"
+                               asp-route-SortOrder=@(Model.SortColumns == "City" && Model.SortOrder == "asc" ? "desc" : "asc")
+                               asp-route-PageIndex="0"
+                               asp-route-GivenName="@Model.GivenName"
+                               asp-route-SurName="@Model.SurName"
+                               asp-route-City="@Model.City">
+                                City
+                            </a>
+                        </th>
+                        <th>Street Adress</th>
+                        <th>National Id</th>
+                        <th>Customer Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <tr>
+                            <td class="text-nowrap">
+                                <a asp-page="/Index" class="btn btn-primary btn-sm">View</a>
+                            </td>
+                            <td>@customer.Givenname</td>
+                            <td>@customer.Surname</td>
+                            <td>@customer.City</td>
+                            <td>@customer.Streetaddress</td>
+                            <td>@customer.NationalId</td>
+                            <td>@customer.CustomerId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+
+                <a class="btn btn-secondary btn-sm @(Model.PageIndex == 0 ? "disabled" : "")"
+                   asp-route-PageIndex="@(Model.PageIndex - 1)"
+                   asp-route-PageSize="@Model.PageSize"
+                   asp-route-GivenName="@Model.GivenName"
+                   asp-route-SurName="@Model.SurName"
+                   asp-route-City="@Model.City">
+                    Previous
+                </a>
+
+                <div class="text-center">
+                    Page @(Model.PageIndex + 1)
+                </div>
+
+                <div class="text-right">
+                    <a class="btn btn-secondary btn-sm @(Model.Customers.Count < Model.PageSize ? "disabled" : "")"
+                       asp-route-PageIndex="@(Model.PageIndex + 1)"
+                       asp-route-PageSize="@Model.PageSize"
+                       asp-route-GivenName="@Model.GivenName"
+                       asp-route-SurName="@Model.SurName"
+                       asp-route-City="@Model.City">
+                        Next
+                    </a>
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+
