@@ -25,6 +25,14 @@ public class CustomerService : ICustomerService
         return customer == null ? null : _mapper.Map<CustomerDetailsDto>(customer);
     }
 
+    public async Task<CustomerSearchResultDto?> GetCustomerByIdAsync(int customerId)
+    {
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.CustomerId == customerId);
+
+        return customer == null ? null : _mapper.Map<CustomerSearchResultDto>(customer);
+    }
+
     public async Task<int> GetCustomerCountAsync()
     {
         return await _context.Customers.CountAsync();
