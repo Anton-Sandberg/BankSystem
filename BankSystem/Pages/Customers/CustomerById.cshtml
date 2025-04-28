@@ -1,0 +1,67 @@
+﻿@page
+@model BankSystem.Pages.Customers.CustomerByIdModel
+@{
+	ViewData["Title"] = "Find Customer by Id";
+
+}
+
+<div class="row">
+	<div class="col-12">
+		<div class="card d-inline-block">
+			<div class="card-body">
+				<div class="row d-inline-block">
+					<form method="get">
+						<div class="col-12">
+							<label asp-for="CustomerId"></label>
+						</div>
+						<div class="col-12">
+							<input class="form-control" asp-for="CustomerId" />
+							<input type="hidden" asp-for="SearchAttempted" value="true" />
+						</div>
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary w-100">
+								Search
+							</button>
+						</div>
+					</form>
+					<div class="col-12">
+						<span asp-validation-for="CustomerId" class="text-danger"></span>
+					</div>
+
+					@if (Model.CustomerSearchViewModel != null)
+					{
+						<div class="col-12">
+							<a asp-page="/Index" class="btn btn-primary w-100">View Customer</a>
+						</div>
+						<div class="col-12">
+							<label>First Name</label>
+							<input class="form-control" value="@Model.CustomerSearchViewModel.Givenname" readonly />
+						</div>
+						<div class="col-12">
+							<label>Last Name</label>
+							<input class="form-control" value="@Model.CustomerSearchViewModel.Surname" readonly />
+						</div>
+						<div class="col-12">
+							<label>City</label>
+							<input class="form-control" value="@Model.CustomerSearchViewModel.City" readonly />
+						</div>
+						<div class="col-12">
+							<label>Street Address</label>
+							<input class="form-control" value="@Model.CustomerSearchViewModel.Streetaddress" readonly />
+						</div>
+						<div class="col-12">
+							<label>National Id</label>
+							<input class="form-control" value="@Model.CustomerSearchViewModel.NationalId" readonly />
+						</div>
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
