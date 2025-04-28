@@ -59,10 +59,16 @@ Coded by www.creative-tim.com
                             <p>Overview</p>
                         </a>
                     </li>
-                    <li class="@(currentPage!.StartsWith("/Customers") ? "active" : "")">
+                    <li class="@(currentPage! == "/Customers/CustomerSearch" ? "active" : "")">
                         <a asp-page="/Customers/CustomerSearch">
                             <i class="nc-icon nc-zoom-split"></i>
                             <p>Search Customers</p>
+                        </a>
+                    </li>
+                    <li class="@(currentPage == "/Customers/CustomerById" ? "active" : "")">
+                        <a asp-page="/Customers/CustomerById">
+                            <i class="nc-icon nc-glasses-2"></i>
+                            <p>Find Customer by Id</p>
                         </a>
                     </li>
                 </ul>
