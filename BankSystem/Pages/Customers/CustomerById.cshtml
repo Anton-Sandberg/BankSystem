@@ -31,7 +31,7 @@
 					@if (Model.CustomerSearchViewModel != null)
 					{
 						<div class="col-12">
-							<a asp-page="/Index" class="btn btn-primary w-100">View Customer</a>
+							<a asp-page="/Customers/CustomerDetails" asp-route-id="@Model.CustomerId" class="btn btn-primary w-100">View Customer</a>
 						</div>
 						<div class="col-12">
 							<label>First Name</label>

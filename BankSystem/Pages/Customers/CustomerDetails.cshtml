@@ -1,0 +1,129 @@
+﻿@page "{id:int}"
+@model BankSystem.Pages.Customers.CustomerDetailsModel
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="containert">
+     <div class="row justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+
+        <!-- Account Info Card -->
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Account</h3>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.TotalBalance"></label>
+                        <input asp-for="ViewModel.TotalBalance" asp-format="{0:N2}" class="form-control" readonly />
+                    </div>
+                    <h6 class="text-secondary pt-2">Accounts</h6>
+
+                    @foreach (var account in Model.ViewModel.Accounts)
+                    {
+                        <div class="border rounded p-2">
+                            <div class="mb-3">
+                                <label>Account Id</label>
+                                <input value="@account.AccountId" asp-format="{0:N2}" class="form-control" readonly />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Balance</label>
+                                <input value="@account.Balance.ToString("N2")" class="form-control" readonly />
+                            </div>
+
+
+                            <div class="text-center">
+                                <a asp-page="/Index" asp-route-id="@account.AccountId" class="btn btn-primary btn-sm">View Account</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Info Card -->
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Personal</h3>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.CustomerId"></label>
+                        <input asp-for="ViewModel.CustomerId" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Givenname"></label>
+                        <input asp-for="ViewModel.Givenname" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Surname"></label>
+                        <input asp-for="ViewModel.Surname" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Gender"></label>
+                        <input asp-for="ViewModel.Gender" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Birthday"></label>
+                        <input asp-for="ViewModel.Birthday" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.NationalId"></label>
+                        <input asp-for="ViewModel.NationalId" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info Card -->
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Contact</h3>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Telephonecountrycode"></label>
+                        <input asp-for="ViewModel.Telephonecountrycode" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Telephonenumber"></label>
+                        <input asp-for="ViewModel.Telephonenumber" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Emailaddress"></label>
+                        <input asp-for="ViewModel.Emailaddress" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Info Card -->
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Location</h3>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Streetaddress"></label>
+                        <input asp-for="ViewModel.Streetaddress" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.City"></label>
+                        <input asp-for="ViewModel.City" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Zipcode"></label>
+                        <input asp-for="ViewModel.Zipcode" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.Country"></label>
+                        <input asp-for="ViewModel.Country" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ViewModel.CountryCode"></label>
+                        <input asp-for="ViewModel.CountryCode" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -86,7 +86,7 @@
                     {
                         <tr>
                             <td class="text-nowrap">
-                                <a asp-page="/Index" class="btn btn-primary btn-sm">View</a>
+                                <a asp-page="/Customers/CustomerDetails" asp-route-id="@customer.CustomerId" class="btn btn-primary btn-sm">View</a>
                             </td>
                             <td>@customer.Givenname</td>
                             <td>@customer.Surname</td>
