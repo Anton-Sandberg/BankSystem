@@ -125,7 +125,7 @@ namespace Services.Services
 
             if (fromAccountId == toAccountId)
             {
-                result.WithError(new FieldError(nameof(TransactionDto.ToAccount), "Cannot transfer to the same account."));
+                result.WithError(new FieldError(nameof(TransactionDto.Account), "Cannot transfer to the same account."));
             }
 
             var fromAccount = await _context.Accounts
@@ -136,12 +136,12 @@ namespace Services.Services
 
             if (fromAccount == null)
             {
-                result.WithError(new FieldError(nameof(TransactionDto.FromAccountId), $"Source account with ID {fromAccountId} not found."));
+                result.WithError(new FieldError(nameof(TransactionDto.AccountId), $"Source account with ID {fromAccountId} not found."));
             }
 
             if (toAccount == null)
             {
-                result.WithError(new FieldError(nameof(TransactionDto.ToAccount), $"Destination account with ID {toAccountId} not found."));
+                result.WithError(new FieldError(nameof(TransactionDto.Account), $"Destination account with ID {toAccountId} not found."));
             }
 
             if (fromAccount != null && fromAccount.Balance < amount)

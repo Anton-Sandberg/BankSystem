@@ -20,8 +20,6 @@ namespace Services
             CreateMap<Account, AccountDto>().ReverseMap();
 
             CreateMap<Transaction, TransactionDto>()
-                .ForMember(dest => dest.ToAccount, opt => opt.MapFrom(src => src.Account))
-                .ForMember(dest => dest.FromAccountId, opt => opt.MapFrom(src => src.AccountId))
                 .ReverseMap();
         }
     }

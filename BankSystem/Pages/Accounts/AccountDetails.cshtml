@@ -52,14 +52,14 @@
                             <tr>
                                 <th>Transaction Id</th>
                                 <th>Date</th>
-                                <th>From Account Id</th>
+                                <th>Account Id</th>
                                 <th>Type</th>
                                 <th>Operation</th>
                                 <th>Amount</th>
                                 <th>Balance</th>
                                 <th>Symbol</th>
                                 <th>Bank</th>
-                                <th>To Account</th>
+                                <th>Account</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,14 +68,14 @@
                                 <tr>
                                     <td>@transaction.TransactionId</td>
                                     <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
-                                    <td>@transaction.FromAccountId</td>
+                                    <td>@transaction.AccountId</td>
                                     <td>@transaction.Type</td>
                                     <td>@transaction.Operation</td>
                                     <td>@transaction.Amount.ToString("N2")</td>
                                     <td>@transaction.Balance.ToString("N2")</td>
                                     <td>@transaction.Symbol</td>
                                     <td>@transaction.Bank</td>
-                                    <td>@transaction.ToAccount</td>
+                                    <td>@transaction.Account</td>
                                 </tr>
                             }
                         </tbody>
@@ -151,14 +151,14 @@
                 `<tr>
                     <td>${transaction.transactionId}</td>
                     <td>${transaction.date}</td>
-                    <td>${transaction.fromAccountId}</td>
+                    <td>${transaction.accountId}</td>
                     <td>${transaction.type}</td>
                     <td>${transaction.operation}</td>
                     <td>${formatToTwoDecimals(transaction.amount)}</td>
                     <td>${formatToTwoDecimals(transaction.balance)}</td>
                     <td>${transaction.symbol}</td>
                     <td>${formatNullToEmptyString(transaction.bank)}</td>
-                    <td>${formatNullToEmptyString(transaction.toAccount)}</td>
+                    <td>${formatNullToEmptyString(transaction.account)}</td>
                 </tr>`;
         }
 
