@@ -15,6 +15,9 @@ namespace BankSystem
             CreateMap<CustomerSearchResultDto, CustomerSearchViewModel>().ReverseMap();
 
             CreateMap<CustomerDetailsDto, CustomerDetailsViewModel>().ReverseMap();
+
+            CreateMap<AccountDto, AccountViewModel>().ReverseMap();
+
         }
     }
 }
