@@ -1,0 +1,175 @@
+﻿@page "{accountId:int}"
+@model BankSystem.Pages.Accounts.AccountDetailsModel
+@{
+    ViewData["Title"] = "Account Details";
+
+}
+
+
+<div class="row">
+    <div class="col-12 col-xl-2 col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <label asp-for="AccountViewModel.AccountId"></label>
+                        <input asp-for="AccountViewModel.AccountId" class="form-control" readonly />
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label asp-for="AccountViewModel.Balance"></label>
+                        <input asp-for="AccountViewModel.Balance" asp-format="{0:N2}" class="form-control" readonly />
+                    </div>
+                    <div class="col-4 col-md-12 col-lg-12">
+                        <a asp-page="/Index" class="btn btn-primary btn-block pl-0 pr-0">Withdraw</a>
+                    </div>
+                    <div class="col-4 col-md-12  col-lg-12">
+                        <a asp-page="/Index" class="btn btn-primary btn-block pl-0 pr-0">Deposit</a>
+                    </div>
+                    <div class="col-4 col-md-12  col-lg-12">
+                        <a asp-page="/Index" class="btn btn-primary btn-block pl-0 pr-0">Transfer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-10 col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Transactions</h5>
+                <div class="table-responsive table-bordered rounded mt-4" style="max-height: 68vh;">
+                    <table class="table table-striped" id="transactions-table">
+                        <thead class="table-light sticky-top">
+                            <tr">
+                                <th>Transaction Id</th>
+                                <th>Date</th>
+                                <th>From Account Id</th>
+                                <th>Type</th>
+                                <th>Operation</th>
+                                <th>Amount</th>
+                                <th>Balance</th>
+                                <th>Symbol</th>
+                                <th>Bank</th>
+                                <th>To Account</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in Model.TransactionViewModels)
+                            {
+                                <tr>
+                                    <td>@transaction.TransactionId</td>
+                                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                                    <td>@transaction.FromAccountId</td>
+                                    <td>@transaction.Type</td>
+                                    <td>@transaction.Operation</td>
+                                    <td>@transaction.Amount.ToString("N2")</td>
+                                    <td>@transaction.Balance.ToString("N2")</td>
+                                    <td>@transaction.Symbol</td>
+                                    <td>@transaction.Bank</td>
+                                    <td>@transaction.ToAccount</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="10" class="text-center">
+                                    <button id="load-more-transactions" class="btn btn-secondary">
+                                        Ladda fler transaktioner
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', onDomContentLoaded);
+
+        let currentPage = 1;
+
+        function onDomContentLoaded() {
+          const loadMoreButton = document.getElementById('load-more-transactions');
+          loadMoreButton.addEventListener('click', onLoadMoreButtonClicked);
+        }
+
+        function onLoadMoreButtonClicked() {
+          currentPage++;
+
+          fetchTransactions()
+            .then(parseJsonResponse)
+            .then(handleData) 
+            .catch(handleError);
+        }
+
+        function fetchTransactions() {
+          return fetch("?handler=LoadMore&currentPage=" + currentPage);
+        }
+
+        function parseJsonResponse(response) {
+          return response.json();
+        }
+
+        function handleData(transactions) {
+            const loadMoreButton = document.getElementById('load-more-transactions');
+
+            if(isLastPage(transactions)){
+                loadMoreButton.innerHTML = "Finns inga fler transaktioner.";
+                loadMoreButton.disabled = true;
+            }
+
+            transactions.forEach(drawTableRow);
+        }
+
+        function isLastPage(transactions) {
+
+          return transactions.length === 0
+              || transactions.length < @Model.PageSize;
+        }
+
+        function drawTableRow(transaction){
+            document.querySelector('#transactions-table tbody').innerHTML +=
+                `<tr>
+                    <td>${transaction.transactionId}</td>
+                    <td>${transaction.date}</td>
+                    <td>${transaction.fromAccountId}</td>
+                    <td>${transaction.type}</td>
+                    <td>${transaction.operation}</td>
+                    <td>${formatToTwoDecimals(transaction.amount)}</td>
+                    <td>${formatToTwoDecimals(transaction.balance)}</td>
+                    <td>${transaction.symbol}</td>
+                    <td>${formatNullToEmptyString(transaction.bank)}</td>
+                    <td>${formatNullToEmptyString(transaction.toAccount)}</td>
+                </tr>`;
+        }
+
+        function handleError(error) {
+          console.error('Error retrieving transactions:', error);
+        }
+
+        function formatToTwoDecimals(number) {
+          return Number(number).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+        }
+
+        function formatNullToEmptyString(value){
+            if(value == null){
+                value = "";
+            }
+            return value;
+        }
+
+    </script>
+}
