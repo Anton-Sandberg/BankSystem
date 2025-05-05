@@ -1,0 +1,49 @@
+﻿@page "{accountId:int}"
+@model BankSystem.Pages.Accounts.WithdrawModel
+@{
+}
+
+<div class="row">
+    <div class="col-12 col-md-4 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+
+                <h6 class="card-title">Withdraw</h6>
+
+                @if(Model.AccountViewModel == null)
+                {
+                    <div class="alert alert-danger">Unable to load account.</div>
+                }
+                else
+                {
+                    <form method="post">
+                        <input asp-for="AccountId" type="hidden" />
+
+                        <div class="form-group">
+                            <label asp-for="Amount"></label>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger mb-3">Withdraw</button>
+
+                        <div class="form-group">
+                            <label>Account ID</label>
+                            <input value="@Model.AccountViewModel.AccountId"
+                                   class="form-control" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Balance</label>
+                            <input value="@Model.AccountViewModel.Balance.ToString("N2")"
+                                   class="form-control" readonly />
+                        </div>
+                    </form>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

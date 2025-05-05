@@ -5,6 +5,15 @@
 
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
 
 <div class="row">
     <div class="col-12 col-xl-2 col-md-3 mb-3">
@@ -20,7 +29,7 @@
                         <input asp-for="AccountViewModel.Balance" asp-format="{0:N2}" class="form-control" readonly />
                     </div>
                     <div class="col-4 col-md-12 col-lg-12">
-                        <a asp-page="/Index" class="btn btn-primary btn-block pl-0 pr-0">Withdraw</a>
+                        <a asp-page="/Accounts/Withdraw" asp-route-accountId="@Model.AccountViewModel.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Withdraw</a>
                     </div>
                     <div class="col-4 col-md-12  col-lg-12">
                         <a asp-page="/Index" class="btn btn-primary btn-block pl-0 pr-0">Deposit</a>
@@ -40,7 +49,7 @@
                 <div class="table-responsive table-bordered rounded mt-4" style="max-height: 68vh;">
                     <table class="table table-striped" id="transactions-table">
                         <thead class="table-light sticky-top">
-                            <tr">
+                            <tr>
                                 <th>Transaction Id</th>
                                 <th>Date</th>
                                 <th>From Account Id</th>
