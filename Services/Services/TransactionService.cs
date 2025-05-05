@@ -90,7 +90,7 @@ namespace Services.Services
 
             if (account != null && account.Balance < amount)
             {
-                result.WithError(new FieldError(nameof(AccountDto.Balance), "Too low balance on account."));
+                result.WithError(new FieldError(nameof(TransactionDto.Amount), "Too low balance on account."));
             }
 
             if (result.IsFailed)
