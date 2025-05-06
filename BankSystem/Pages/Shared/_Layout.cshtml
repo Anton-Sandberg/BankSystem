@@ -8,7 +8,7 @@
 
 Coded by www.creative-tim.com
 
- =========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
@@ -36,7 +36,7 @@ Coded by www.creative-tim.com
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+    href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
     <link href="~/css/site.css" rel="stylesheet" />
 
 
@@ -48,7 +48,7 @@ Coded by www.creative-tim.com
             <div class="logo">
                 <a asp-page="/Index" class="simple-text logo-big">
                     <i class="nc-icon nc-bank m-2"></i>
-                     Bank System
+                    Bank System
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -59,18 +59,32 @@ Coded by www.creative-tim.com
                             <p>Overview</p>
                         </a>
                     </li>
-                    <li class="@(currentPage! == "/Customers/CustomerSearch" ? "active" : "")">
-                        <a asp-page="/Customers/CustomerSearch">
-                            <i class="nc-icon nc-zoom-split"></i>
-                            <p>Search Customers</p>
-                        </a>
-                    </li>
-                    <li class="@(currentPage == "/Customers/CustomerById" ? "active" : "")">
-                        <a asp-page="/Customers/CustomerById">
-                            <i class="nc-icon nc-glasses-2"></i>
-                            <p>Find Customer by Id</p>
-                        </a>
-                    </li>
+                    @if(User.IsInRole("Cashier"))
+                    {
+                        <li class="@(currentPage! == "/Customers/CustomerSearch" ? "active" : "")">
+                            <a asp-page="/Customers/CustomerSearch">
+                                <i class="nc-icon nc-zoom-split"></i>
+                                <p>Search Customers</p>
+                            </a>
+                        </li>
+                        <li class="@(currentPage == "/Customers/CustomerById" ? "active" : "")">
+                            <a asp-page="/Customers/CustomerById">
+                                <i class="nc-icon nc-glasses-2"></i>
+                                <p>Find Customer by Id</p>
+                            </a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="@(currentPage == "/Users/UsersCRUD" ? "active" : "")">
+                            <a asp-page="/Users/UsersCRUD">
+                                <i class="nc-icon nc-single-02"></i>
+                                <p>Manage Users</p>
+                            </a>
+                        </li>
+                    }
+
                 </ul>
             </div>
         </div>
@@ -88,6 +102,34 @@ Coded by www.creative-tim.com
                         </div>
                         <span class="text-muted" style="font-size:1.5rem;">@ViewData["Title"]</span>
                     </div>
+
+                    <div class="ml-auto">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-area="Identity"
+                                  asp-page="/Account/Logout"
+                                  asp-route-returnUrl="@Url.Page("/Index")"
+                                  method="post">
+                                <span class="text-muted">Signed in as </span>
+                                <span class="mr-4 font-weight-bold">@User.Identity.Name</span>
+                                <button type="submit" class="btn btn-secondary">
+                                    <span>Log out</span>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-area="Identity"
+                               asp-page="/Account/Login"
+                               class="btn btn-second">
+                                Log in
+                            </a>
+                        }
+
+                    </div>
+
+
                 </div>
 
             </nav>
