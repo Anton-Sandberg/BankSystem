@@ -1,11 +1,13 @@
 using System.ComponentModel;
 using AutoMapper;
 using BankSystem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankSystem.Pages.Customers
 {
+    [Authorize(Roles = "Cashier")]
     public class CustomerByIdModel : PageModel
     {
         private ICustomerService _customerService;
