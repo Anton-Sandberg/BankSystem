@@ -105,7 +105,7 @@ Coded by www.creative-tim.com
 
                     <div class="ml-auto">
 
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User?.Identity != null && User.Identity.IsAuthenticated)
                         {
                             <form asp-area="Identity"
                                   asp-page="/Account/Logout"

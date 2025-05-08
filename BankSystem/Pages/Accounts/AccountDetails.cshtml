@@ -15,91 +15,94 @@
     </div>
 }
 
-<div class="row">
-    <div class="col-12 col-xl-2 col-md-3 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <label asp-for="AccountViewModel.AccountId"></label>
-                        <input asp-for="AccountViewModel.AccountId" class="form-control" readonly />
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label asp-for="AccountViewModel.Balance"></label>
-                        <input asp-for="AccountViewModel.Balance" asp-format="{0:N2}" class="form-control" readonly />
-                    </div>
-                    <div class="col-4 col-md-12 col-lg-12">
-                        <a asp-page="/Accounts/Withdraw" asp-route-accountId="@Model.AccountViewModel.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Withdraw</a>
-                    </div>
-                    <div class="col-4 col-md-12  col-lg-12">
-                        <a asp-page="/Accounts/Deposit" asp-route-accountId="@Model.AccountViewModel.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Deposit</a>
-                    </div>
-                    <div class="col-4 col-md-12  col-lg-12">
-                        <a asp-page="/Accounts/Transfer" asp-route-accountId="@Model.AccountViewModel.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Transfer</a>
+@if (Model.AccountViewModel != null)
+{
+    <div class="row">
+        <div class="col-12 col-xl-2 col-md-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <label asp-for="AccountViewModel!.AccountId"></label>
+                            <input asp-for="AccountViewModel!.AccountId" class="form-control" readonly />
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label asp-for="AccountViewModel!.Balance"></label>
+                            <input asp-for="AccountViewModel!.Balance" asp-format="{0:N2}" class="form-control" readonly />
+                        </div>
+                        <div class="col-4 col-md-12 col-lg-12">
+                            <a asp-page="/Accounts/Withdraw" asp-route-accountId="@Model.AccountViewModel!.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Withdraw</a>
+                        </div>
+                        <div class="col-4 col-md-12  col-lg-12">
+                            <a asp-page="/Accounts/Deposit" asp-route-accountId="@Model.AccountViewModel!.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Deposit</a>
+                        </div>
+                        <div class="col-4 col-md-12  col-lg-12">
+                            <a asp-page="/Accounts/Transfer" asp-route-accountId="@Model.AccountViewModel!.AccountId" class="btn btn-primary btn-block pl-0 pr-0">Transfer</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-12 col-xl-10 col-md-9">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">Transactions</h5>
-                <div class="table-responsive table-bordered rounded mt-4" style="max-height: 68vh;">
-                    <table class="table table-striped" id="transactions-table">
-                        <thead class="table-light sticky-top">
-                            <tr>
-                                <th>Transaction Id</th>
-                                <th>Date</th>
-                                <th>Account Id</th>
-                                <th>Type</th>
-                                <th>Operation</th>
-                                <th>Amount</th>
-                                <th>Balance</th>
-                                <th>Symbol</th>
-                                <th>Bank</th>
-                                <th>Account</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var transaction in Model.TransactionViewModels)
-                            {
+        <div class="col-12 col-xl-10 col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Transactions</h5>
+                    <div class="table-responsive table-bordered rounded mt-4" style="max-height: 68vh;">
+                        <table class="table table-striped" id="transactions-table">
+                            <thead class="table-light sticky-top">
                                 <tr>
-                                    <td>@transaction.TransactionId</td>
-                                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
-                                    <td>@transaction.AccountId</td>
-                                    <td>@transaction.Type</td>
-                                    <td>@transaction.Operation</td>
-                                    <td>@transaction.Amount.ToString("N2")</td>
-                                    <td>@transaction.Balance.ToString("N2")</td>
-                                    <td>@transaction.Symbol</td>
-                                    <td>@transaction.Bank</td>
-                                    <td>@transaction.Account</td>
+                                    <th>Transaction Id</th>
+                                    <th>Date</th>
+                                    <th>Account Id</th>
+                                    <th>Type</th>
+                                    <th>Operation</th>
+                                    <th>Amount</th>
+                                    <th>Balance</th>
+                                    <th>Symbol</th>
+                                    <th>Bank</th>
+                                    <th>Account</th>
                                 </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="10" class="text-center">
-                                    <button id="load-more-transactions" class="btn btn-secondary">
-                                        Ladda fler transaktioner
-                                    </button>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach (var transaction in Model.TransactionViewModels)
+                                {
+                                    <tr>
+                                        <td>@transaction.TransactionId</td>
+                                        <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                                        <td>@transaction.AccountId</td>
+                                        <td>@transaction.Type</td>
+                                        <td>@transaction.Operation</td>
+                                        <td>@transaction.Amount.ToString("N2")</td>
+                                        <td>@transaction.Balance.ToString("N2")</td>
+                                        <td>@transaction.Symbol</td>
+                                        <td>@transaction.Bank</td>
+                                        <td>@transaction.Account</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="10" class="text-center">
+                                        <button id="load-more-transactions" class="btn btn-secondary">
+                                            Ladda fler transaktioner
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
 
+                </div>
             </div>
         </div>
+
     </div>
-
-</div>
-
-
-
-
+}
+else
+{
+    <div class="alert alert-warning">No customer data found.</div>
+}
 
 @section Scripts {
     <script>
