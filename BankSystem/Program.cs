@@ -33,6 +33,13 @@ namespace BankSystem
 
             using (var scope = app.Services.CreateScope())
             {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BankAppDataContext>();
+                if (dbContext.Database.IsRelational())
+                {
+                    dbContext.Database.Migrate();
+                }
+
+
                 var initializer = scope.ServiceProvider.GetRequiredService<DataInitializer>();
                 initializer.SeedData();
             }
