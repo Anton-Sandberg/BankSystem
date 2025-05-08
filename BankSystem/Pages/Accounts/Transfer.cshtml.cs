@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using BankSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +19,13 @@ namespace BankSystem.Pages.Accounts
         public int AccountId { get; set; }
 
         [BindProperty]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than 0.")]
+        [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
 
         [BindProperty]
+        [DisplayName("To Account")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a valid account number.")]
         public int ToAccount {  get; set; }
 
 

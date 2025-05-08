@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using BankSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,8 @@ namespace BankSystem.Pages.Customers
 
         [DisplayName("Customer Id")]
         [BindProperty(SupportsGet = true)]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a valid Customer Id.")]
+
         public int CustomerId { get; set; }
 
         public CustomerSearchViewModel? CustomerSearchViewModel { get; set; }
