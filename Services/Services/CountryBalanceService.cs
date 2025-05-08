@@ -18,11 +18,12 @@ namespace Services.Services
         {
             var result = await _context.Customers
                 .SelectMany(c => c.Dispositions, (customer, disposition) => new { customer, disposition })
-                .Select(x => new { x.customer.Country, x.disposition.Account.Balance })
+                .Select(x => new { x.customer.Country, x.disposition.Account.Balance, x.customer.CountryCode })
                 .GroupBy(x => x.Country)
                 .Select(g => new CountryBalanceDto
                 {
                     Country = g.Key,
+                    CountryCode = g.First().CountryCode,
                     TotalBalance = g.Sum(x => x.Balance)
                 })
                 .ToListAsync();

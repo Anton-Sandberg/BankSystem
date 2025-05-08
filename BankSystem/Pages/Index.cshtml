@@ -46,7 +46,7 @@
         <div class="row align-content-start">
             @foreach (var country in Model.CountryBalances)
             {
-                @await Html.PartialAsync("_CountryBalanceCardPartial", country)
+                <partial name="_CountryBalanceCardPartial" model="country" />
             }
         </div>
     }
