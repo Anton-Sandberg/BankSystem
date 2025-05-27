@@ -18,6 +18,4 @@
 
 ## Azure-publicering
 
-Azure länk av applikationen finns här:
-**[BankSystem](https://banksystem-asb2bub6e6e5b6fb.swedencentral-01.azurewebsites.net)**  
-Direktlänk: `https://banksystem-asb2bub6e6e5b6fb.swedencentral-01.azurewebsites.net`
+Appen var tidigare publicerad på Azure, men både Web appen och databas har nu tagits bort eftersom projektet är gjord i lärosyfte och inte längre aktivt underhålls.
